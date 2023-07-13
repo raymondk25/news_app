@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var newsType = NewsType.allNews;
+  String sortBy = SortByEnum.publishedAt.name;
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -78,67 +79,103 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const VerticalSpacing(10),
-              newsType == NewsType.topTrending
-                  ? const SizedBox.shrink()
-                  : SizedBox(
-                      height: kBottomNavigationBarHeight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          paginationButtons(
-                              text: "Prev",
-                              function: () {
-                                if (currentPageIndex == 0) return;
-                                setState(() {
-                                  currentPageIndex -= 1;
-                                });
-                              }),
-                          Flexible(
-                            flex: 2,
-                            child: ListView.builder(
-                              itemCount: 10,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (ctx, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Material(
-                                    color: currentPageIndex == index ? Colors.blue : Theme.of(context).cardColor,
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          currentPageIndex = index;
-                                        });
-                                      },
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "${index + 1}",
-                                          ),
-                                        ),
+              if (newsType == NewsType.allNews)
+                SizedBox(
+                  height: kBottomNavigationBarHeight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      paginationButtons(
+                          text: "Prev",
+                          function: () {
+                            if (currentPageIndex == 0) return;
+                            setState(() {
+                              currentPageIndex -= 1;
+                            });
+                          }),
+                      Flexible(
+                        flex: 2,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (ctx, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Material(
+                                color: currentPageIndex == index ? Colors.blue : Theme.of(context).cardColor,
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentPageIndex = index;
+                                    });
+                                  },
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "${index + 1}",
                                       ),
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          paginationButtons(
-                              text: "Next",
-                              function: () {
-                                if (currentPageIndex == 9) return;
-                                setState(() {
-                                  currentPageIndex += 1;
-                                });
-                              }),
-                        ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    )
+                      paginationButtons(
+                          text: "Next",
+                          function: () {
+                            if (currentPageIndex == 9) return;
+                            setState(() {
+                              currentPageIndex += 1;
+                            });
+                          }),
+                    ],
+                  ),
+                ),
+              const VerticalSpacing(10),
+              if (newsType == NewsType.allNews)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Material(
+                    color: Theme.of(context).cardColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: DropdownButton(
+                          value: sortBy,
+                          items: dropDownItems,
+                          onChanged: (String? value) {
+                            setState(() {
+                              sortBy = value!;
+                            });
+                          }),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<DropdownMenuItem<String>> get dropDownItems {
+    List<DropdownMenuItem<String>> menuItem = [
+      DropdownMenuItem(
+        value: SortByEnum.relevancy.name,
+        child: Text(SortByEnum.relevancy.name),
+      ),
+      DropdownMenuItem(
+        value: SortByEnum.publishedAt.name,
+        child: Text(SortByEnum.publishedAt.name),
+      ),
+      DropdownMenuItem(
+        value: SortByEnum.popularity.name,
+        child: Text(SortByEnum.popularity.name),
+      ),
+    ];
+    return menuItem;
   }
 
   ElevatedButton paginationButtons({required String text, required Function function}) {
