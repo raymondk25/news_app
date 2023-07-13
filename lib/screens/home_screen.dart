@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var newsType = NewsType.allNews;
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).getColor;
@@ -84,7 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          paginationButtons(text: "Prev", function: () {}),
+                          paginationButtons(
+                              text: "Prev",
+                              function: () {
+                                if (currentPageIndex == 0) return;
+                                setState(() {
+                                  currentPageIndex -= 1;
+                                });
+                              }),
                           Flexible(
                             flex: 2,
                             child: ListView.builder(
@@ -93,15 +101,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (ctx, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Center(
-                                      child: Container(
-                                        color: Theme.of(context).cardColor,
+                                  child: Material(
+                                    color: currentPageIndex == index ? Colors.blue : Theme.of(context).cardColor,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          currentPageIndex = index;
+                                        });
+                                      },
+                                      child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            index.toString(),
+                                            "${index + 1}",
                                           ),
                                         ),
                                       ),
@@ -111,7 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             ),
                           ),
-                          paginationButtons(text: "Next", function: () {}),
+                          paginationButtons(
+                              text: "Next",
+                              function: () {
+                                if (currentPageIndex == 9) return;
+                                setState(() {
+                                  currentPageIndex += 1;
+                                });
+                              }),
                         ],
                       ),
                     )
