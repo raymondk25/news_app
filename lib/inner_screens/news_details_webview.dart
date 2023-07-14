@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../services/utils.dart';
@@ -22,9 +23,11 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            setState(() {
-              _progress = progress / 100;
-            });
+            if (mounted) {
+              setState(() {
+                _progress = progress / 100;
+              });
+            }
           },
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
@@ -40,6 +43,12 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
       ..loadRequest(Uri.parse(
           'https://techcrunch.com/2022/06/17/marc-lores-food-delivery-startup-wonder-raises-350m-3-5b-valuation/'));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _webViewController.clearCache();
+    super.dispose();
   }
 
   @override
@@ -59,6 +68,12 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             elevation: 0,
             centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(IconlyLight.arrowLeft2),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             title: Text(
               "URL",
               style: TextStyle(color: color),
