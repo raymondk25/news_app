@@ -45,7 +45,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    ctx: context,
+                    inheritTheme: true,
+                    type: PageTransitionType.rightToLeft,
+                    child: const SearchScreen(),
+                  ),
+                );
+              },
               icon: const Icon(IconlyLight.search),
             ),
           ],
