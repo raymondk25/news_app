@@ -1,12 +1,14 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../consts/vars.dart';
 import '../services/utils.dart';
+import '../widgets/articles_widget.dart';
 import '../widgets/drawer_widget.dart';
-import '../widgets/loading_widget.dart';
 import '../widgets/tabs_widget.dart';
+import '../widgets/top_tending.dart';
 import '../widgets/vertical_spacing.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final size = Utils(context).getScreenSize;
     final Color color = Utils(context).getColor;
     return SafeArea(
       child: Scaffold(
@@ -155,7 +158,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               const VerticalSpacing(10),
-              const LoadingWidget(),
+              if (newsType == NewsType.allNews)
+                Expanded(
+                  child: ListView.builder(
+                      // you can add these 2 lines for better performance
+                      // shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: 20,
+                      itemBuilder: (ctx, index) {
+                        return const ArticlesWidget();
+                      }),
+                ),
+              if (newsType == NewsType.topTrending)
+                SizedBox(
+                  height: size.height * 0.5,
+                  child: Swiper(
+                    itemCount: 5,
+                    autoplay: true,
+                    autoplayDelay: 8000,
+                    viewportFraction: 0.9,
+                    itemWidth: size.width * 0.9,
+                    layout: SwiperLayout.STACK,
+                    itemBuilder: (ctx, index) {
+                      return const TopTrendingWidget();
+                    },
+                  ),
+                ),
             ],
           ),
         ),
