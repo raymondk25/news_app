@@ -1,6 +1,8 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:news_app/widgets/vertical_spacing.dart';
 
+import '../consts/vars.dart';
 import '../services/utils.dart';
 
 class ArticlesWidget extends StatelessWidget {
@@ -13,7 +15,7 @@ class ArticlesWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Material(
         color: Theme.of(context).cardColor,
-        child: InkWell(
+        child: GestureDetector(
           onTap: () {},
           child: Stack(
             children: [
@@ -44,6 +46,50 @@ class ArticlesWidget extends StatelessWidget {
                           width: size.height * 0.12,
                           boxFit: BoxFit.fill,
                           imageUrl: "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1"),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'title ' * 100,
+                            textAlign: TextAlign.justify,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: smallTextStyle,
+                          ),
+                          const VerticalSpacing(5),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              '🕒 Reading time',
+                              style: smallTextStyle,
+                            ),
+                          ),
+                          FittedBox(
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.link,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Text(
+                                  '20-2-2020 ' * 2,
+                                  maxLines: 1,
+                                  style: smallTextStyle,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

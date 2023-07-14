@@ -154,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+              const VerticalSpacing(10),
               Expanded(
                 child: ListView.builder(
                   itemCount: 20,
