@@ -2,6 +2,9 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/inner_screens/search_screen.dart';
+import 'package:news_app/widgets/loading_widget.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../consts/vars.dart';
 import '../services/utils.dart';
@@ -171,18 +174,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               if (newsType == NewsType.topTrending)
                 SizedBox(
-                  height: size.height * 0.5,
-                  child: Swiper(
-                    itemCount: 5,
-                    autoplay: true,
-                    autoplayDelay: 8000,
-                    viewportFraction: 0.9,
-                    itemWidth: size.width * 0.9,
-                    layout: SwiperLayout.STACK,
-                    itemBuilder: (ctx, index) {
-                      return const TopTrendingWidget();
-                    },
-                  ),
+                  height: size.height * 0.6,
+                  child: LoadingWidget(newsType: newsType),
+                  // Swiper(
+                  //     itemCount: 5,
+                  //     autoplay: true,
+                  //     autoplayDelay: 8000,
+                  //     viewportFraction: 0.9,
+                  //     itemWidth: size.width * 0.9,
+                  //     layout: SwiperLayout.STACK,
+                  //     itemBuilder: (ctx, index) {
+                  //       return const TopTrendingWidget();
+                  //     },
+                  //   ),
                 ),
             ],
           ),
