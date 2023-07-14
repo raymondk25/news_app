@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/inner_screens/bookmarks_screen.dart';
 import 'package:news_app/widgets/vertical_spacing.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme_provider.dart';
@@ -56,7 +58,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ListTilesWidget(
               label: "Bookmark",
               icon: themeProvider.getDarkTheme ? IconlyBold.bookmark : IconlyLight.bookmark,
-              function: () {},
+              function: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    ctx: context,
+                    inheritTheme: true,
+                    type: PageTransitionType.rightToLeft,
+                    child: const BookmarkScreen(),
+                  ),
+                );
+              },
             ),
             const Divider(thickness: 5),
             SwitchListTile(
