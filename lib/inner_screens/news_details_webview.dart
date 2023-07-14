@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -153,7 +155,15 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                 ListTile(
                   leading: const Icon(Icons.refresh),
                   title: const Text('Refresh'),
-                  onTap: () {},
+                  onTap: () async {
+                    try {
+                      await _webViewController.reload();
+                    } catch (err) {
+                      log("error occured $err");
+                    } finally {
+                      Navigator.pop(context);
+                    }
+                  },
                 ),
               ],
             ),
