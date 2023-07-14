@@ -346,7 +346,7 @@ packages:
     source: hosted
     version: "2.3.0"
   shimmer:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shimmer
       url: "https://pub.dartlang.org"

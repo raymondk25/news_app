@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/consts/vars.dart';
-import 'package:news_app/services/utils.dart';
-import 'package:news_app/widgets/drawer_widget.dart';
-import 'package:news_app/widgets/vertical_spacing.dart';
 
-import '../widgets/articles_widget.dart';
+import '../consts/vars.dart';
+import '../services/utils.dart';
+import '../widgets/drawer_widget.dart';
+import '../widgets/loading_widget.dart';
 import '../widgets/tabs_widget.dart';
+import '../widgets/vertical_spacing.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -155,14 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               const VerticalSpacing(10),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (ctx, index) {
-                    return const ArticlesWidget();
-                  },
-                ),
-              ),
+              const LoadingWidget(),
             ],
           ),
         ),
