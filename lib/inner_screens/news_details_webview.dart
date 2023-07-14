@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../services/utils.dart';
+import '../widgets/vertical_spacing.dart';
 
 class NewsDetailsWebView extends StatefulWidget {
   const NewsDetailsWebView({Key? key}) : super(key: key);
@@ -80,7 +81,9 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await _showModalSheetFct();
+                },
                 icon: const Icon(
                   Icons.more_horiz,
                 ),
@@ -101,5 +104,60 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
         ),
       ),
     );
+  }
+
+  Future<void> _showModalSheetFct() async {
+    await showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const VerticalSpacing(20),
+                Center(
+                  child: Container(
+                    height: 5,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                const VerticalSpacing(20),
+                const Text(
+                  'More option',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+                const VerticalSpacing(20),
+                const Divider(
+                  thickness: 2,
+                ),
+                const VerticalSpacing(20),
+                ListTile(
+                  leading: const Icon(Icons.share),
+                  title: const Text('Share'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.open_in_browser),
+                  title: const Text('Open in browser'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.refresh),
+                  title: const Text('Refresh'),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
