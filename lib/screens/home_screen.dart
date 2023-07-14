@@ -185,19 +185,19 @@ class _HomeScreenState extends State<HomeScreen> {
               if (newsType == NewsType.topTrending)
                 SizedBox(
                   height: size.height * 0.6,
-                  child: LoadingWidget(newsType: newsType),
-                  // Swiper(
-                  //     itemCount: 5,
-                  //     autoplay: true,
-                  //     autoplayDelay: 8000,
-                  //     viewportFraction: 0.9,
-                  //     itemWidth: size.width * 0.9,
-                  //     layout: SwiperLayout.STACK,
-                  //     itemBuilder: (ctx, index) {
-                  //       return const TopTrendingWidget();
-                  //     },
-                  //   ),
+                  child: Swiper(
+                    itemCount: 5,
+                    autoplay: true,
+                    autoplayDelay: 8000,
+                    viewportFraction: 0.9,
+                    itemWidth: size.width * 0.9,
+                    layout: SwiperLayout.STACK,
+                    itemBuilder: (ctx, index) {
+                      return const TopTrendingWidget();
+                    },
+                  ),
                 ),
+              // LoadingWidget(newsType: newsType),
             ],
           ),
         ),

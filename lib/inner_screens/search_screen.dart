@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:news_app/widgets/empty_screen.dart';
 
 import '../consts/vars.dart';
 import '../services/utils.dart';
@@ -117,6 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
+            // const EmptyNewsWidget(text: "ops! no results found", imagePath: "assets/images/search.png")
           ],
         )),
       ),
