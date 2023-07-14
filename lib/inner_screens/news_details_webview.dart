@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:news_app/services/global_methods.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -157,7 +158,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                     try {
                       await Share.share(url, subject: 'Look what I made!');
                     } catch (err) {
-                      log(err.toString());
+                      GlobalMethods.errorDialog(errorMessage: err.toString(), context: context);
                     }
                   },
                 ),
@@ -175,7 +176,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                     try {
                       await _webViewController.reload();
                     } catch (err) {
-                      log("error occured $err");
+                      GlobalMethods.errorDialog(errorMessage: err.toString(), context: context);
                     } finally {
                       Navigator.pop(context);
                     }
