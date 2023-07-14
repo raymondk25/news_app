@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../services/utils.dart';
@@ -16,6 +17,7 @@ class NewsDetailsWebView extends StatefulWidget {
 }
 
 class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
+  final url = 'https://techcrunch.com/2022/06/17/marc-lores-food-delivery-startup-wonder-raises-350m-3-5b-valuation/';
   late WebViewController _webViewController;
   double _progress = 0.0;
 
@@ -44,8 +46,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(
-          'https://techcrunch.com/2022/06/17/marc-lores-food-delivery-startup-wonder-raises-350m-3-5b-valuation/'));
+      ..loadRequest(Uri.parse(url));
     super.initState();
   }
 
@@ -109,6 +110,12 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
     );
   }
 
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   Future<void> _showModalSheetFct() async {
     await showModalBottomSheet(
         shape: const RoundedRectangleBorder(
@@ -148,7 +155,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                   title: const Text('Share'),
                   onTap: () async {
                     try {
-                      await Share.share('url', subject: 'Look what I made!');
+                      await Share.share(url, subject: 'Look what I made!');
                     } catch (err) {
                       log(err.toString());
                     }
@@ -157,7 +164,9 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                 ListTile(
                   leading: const Icon(Icons.open_in_browser),
                   title: const Text('Open in browser'),
-                  onTap: () {},
+                  onTap: () async {
+                    await _launchUrl();
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.refresh),
