@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:news_app/inner_screens/news_details_webview.dart';
 import 'package:news_app/widgets/vertical_spacing.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../consts/vars.dart';
 import '../services/utils.dart';
@@ -74,7 +76,17 @@ class ArticlesWidget extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        ctx: context,
+                                        inheritTheme: true,
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const NewsDetailsWebView(),
+                                      ),
+                                    );
+                                  },
                                   icon: const Icon(
                                     Icons.link,
                                     color: Colors.blue,
