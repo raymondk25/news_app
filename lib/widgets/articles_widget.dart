@@ -5,6 +5,7 @@ import 'package:news_app/widgets/vertical_spacing.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../consts/vars.dart';
+import '../inner_screens/blog_details.dart';
 import '../services/utils.dart';
 
 class ArticlesWidget extends StatelessWidget {
@@ -18,7 +19,9 @@ class ArticlesWidget extends StatelessWidget {
       child: Material(
         color: Theme.of(context).cardColor,
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, NewsDetailsScreen.routeName);
+          },
           child: Stack(
             children: [
               Container(
@@ -47,6 +50,7 @@ class ArticlesWidget extends StatelessWidget {
                           height: size.height * 0.12,
                           width: size.height * 0.12,
                           boxFit: BoxFit.fill,
+                          errorWidget: Image.asset('assets/images/empty_image.png'),
                           imageUrl: "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1"),
                     ),
                     const SizedBox(
