@@ -84,10 +84,13 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 25),
-                  child: FancyShimmerImage(
-                    boxFit: BoxFit.fill,
-                    errorWidget: Image.asset('assets/images/empty_image.png'),
-                    imageUrl: currentNews.urlToImage,
+                  child: Hero(
+                    tag: currentNews.publishedAt,
+                    child: FancyShimmerImage(
+                      boxFit: BoxFit.fill,
+                      errorWidget: Image.asset('assets/images/empty_image.png'),
+                      imageUrl: currentNews.urlToImage,
+                    ),
                   ),
                 ),
               ),
