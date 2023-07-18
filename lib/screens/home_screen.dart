@@ -181,10 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               const VerticalSpacing(10),
               FutureBuilder<List<NewsModel>>(
-                  future: newsProvider.fetchAllNews(
-                    pageIndex: currentPageIndex + 1,
-                    sortBy: sortBy,
-                  ),
+                  future: newsType == NewsType.allNews
+                      ? newsProvider.fetchAllNews(pageIndex: currentPageIndex + 1, sortBy: sortBy)
+                      : newsProvider.fetchTopHeadlines(),
                   builder: ((context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return newsType == NewsType.allNews
@@ -211,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }),
                           )
                         : SizedBox(
-                            height: size.height * 0.6,
+                            height: size.height * 0.65,
                             child: Swiper(
                               itemCount: 5,
                               autoplay: true,
@@ -220,8 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemWidth: size.width * 0.9,
                               layout: SwiperLayout.STACK,
                               itemBuilder: (ctx, index) {
-                                return TopTrendingWidget(
-                                  url: snapshot.data![index].url,
+                                return ChangeNotifierProvider.value(
+                                  value: snapshot.data![index],
+                                  child: const TopTrendingWidget(),
                                 );
                               },
                             ),

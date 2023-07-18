@@ -31,4 +31,23 @@ class NewsAPIServices {
       throw e.toString();
     }
   }
+
+  static Future<List<NewsModel>> getTopHeadlines() async {
+    try {
+      var uri = Uri.https(kBaseUrl, "v2/top-headlines", {"country": "us"});
+      var response = await http.get(uri, headers: {"X-Api-Key": kApiKey});
+
+      Map data = jsonDecode(response.body);
+      List newsTempList = [];
+      if (data['code'] != null) {
+        throw HttpException(data['code']);
+      }
+      for (var v in data["articles"]) {
+        newsTempList.add(v);
+      }
+      return NewsModel.newsFromSnapshot(newsTempList);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 }
