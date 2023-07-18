@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:news_app/consts/api_consts.dart';
+import 'package:news_app/consts/http_exceptions.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsAPIServices {
@@ -18,7 +19,7 @@ class NewsAPIServices {
       Map data = jsonDecode(response.body);
       List newsTempList = [];
       if (data['code'] != null) {
-        throw data['message'];
+        throw HttpException(data['code']);
       }
       for (var v in data["articles"]) {
         newsTempList.add(v);
