@@ -1,3 +1,4 @@
+import 'package:news_app/services/global_methods.dart';
 import 'package:reading_time/reading_time.dart';
 
 class NewsModel {
@@ -31,6 +32,10 @@ class NewsModel {
     String title = json["title"] ?? "";
     String description = json["description"] ?? "";
     String content = json["content"] ?? "";
+    String dateToShow = "";
+    if (json["publishedAt"] != null) {
+      dateToShow = GlobalMethods.formattedDateText(json["publishedAt"]);
+    }
     return NewsModel(
       newsId: json["source"]["id"] ?? "",
       sourceName: json["source"]["name"] ?? "",
@@ -42,7 +47,7 @@ class NewsModel {
           json["urlToImage"] ?? "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1",
       publishedAt: json["publishedAt"] ?? "",
       content: content,
-      dateToShow: "dateToShow",
+      dateToShow: dateToShow,
       readingTimeText: readingTime(title + description + content).msg,
     );
   }
