@@ -14,4 +14,8 @@ class NewsProvider extends ChangeNotifier {
     newsList = await NewsAPIServices.getAllNews(page: pageIndex, sortBy: sortBy);
     return newsList;
   }
+
+  NewsModel findByDate({required String publishedAt}) {
+    return newsList.firstWhere((element) => element.publishedAt == publishedAt);
+  }
 }

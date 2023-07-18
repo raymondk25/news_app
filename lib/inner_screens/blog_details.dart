@@ -2,6 +2,8 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/providers/news_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/styles.dart';
 import '../services/utils.dart';
@@ -19,6 +21,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).getColor;
+    final newsProvider = Provider.of<NewsProvider>(context);
+    String publishedAt = ModalRoute.of(context)!.settings.arguments as String;
+    final currentNews = newsProvider.findByDate(publishedAt: publishedAt);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +32,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
-          "By Author",
+          "By ${currentNews.authorName}",
           textAlign: TextAlign.center,
           style: TextStyle(color: color),
         ),
@@ -49,7 +54,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Title" * 10,
+                  currentNews.title,
                   textAlign: TextAlign.justify,
                   style: titleTextStyle,
                 ),
@@ -57,12 +62,12 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 Row(
                   children: [
                     Text(
-                      "20/20/2015",
+                      currentNews.dateToShow,
                       style: smallTextStyle,
                     ),
                     const Spacer(),
                     Text(
-                      "readingTimeText",
+                      currentNews.readingTimeText,
                       style: smallTextStyle,
                     ),
                   ],
@@ -80,7 +85,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                   child: FancyShimmerImage(
                     boxFit: BoxFit.fill,
                     errorWidget: Image.asset('assets/images/empty_image.png'),
-                    imageUrl: "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1",
+                    imageUrl: currentNews.urlToImage,
                   ),
                 ),
               ),
@@ -140,7 +145,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 ),
                 const VerticalSpacing(10),
                 TextContent(
-                  label: "description " * 12,
+                  label: currentNews.description,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
                 ),
@@ -156,7 +161,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                   10,
                 ),
                 TextContent(
-                  label: "content " * 12,
+                  label: currentNews.content,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
                 ),

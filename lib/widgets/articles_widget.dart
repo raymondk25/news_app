@@ -23,7 +23,7 @@ class ArticlesWidget extends StatelessWidget {
         color: Theme.of(context).cardColor,
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, NewsDetailsScreen.routeName);
+            Navigator.pushNamed(context, NewsDetailsScreen.routeName, arguments: newsModelProvider.publishedAt);
           },
           child: Stack(
             children: [
