@@ -32,16 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPageIndex = 0;
 
   @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-  }
-
-  Future<List<NewsModel>> getNewsList() async {
-    List<NewsModel> newsList = await NewsAPIServices.getAllNews();
-    return newsList;
-  }
-
-  @override
   Widget build(BuildContext context) {
     final size = Utils(context).getScreenSize;
     final Color color = Utils(context).getColor;
@@ -187,18 +177,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               const VerticalSpacing(10),
-              FutureBuilder(
-                  future: getNewsList(),
+              FutureBuilder<List<NewsModel>>(
+                  future: NewsAPIServices.getAllNews(),
                   builder: ((context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return newsType == NewsType.allNews
                           ? LoadingWidget(newsType: newsType)
                           : Expanded(child: LoadingWidget(newsType: newsType));
                     } else if (snapshot.hasError) {
-                      return EmptyNewsWidget(
-                          text: "An error occured ${snapshot.error}", imagePath: 'assets/images/no_news.png');
+                      return Expanded(
+                        child: EmptyNewsWidget(
+                            text: "An error occured ${snapshot.error}", imagePath: 'assets/images/no_news.png'),
+                      );
                     } else if (snapshot.data == null) {
-                      return const EmptyNewsWidget(text: "No news found", imagePath: 'assets/images/no_news.png');
+                      return const Expanded(
+                          child: EmptyNewsWidget(text: "No news found", imagePath: 'assets/images/no_news.png'));
                     }
                     return newsType == NewsType.allNews
                         ? Expanded(

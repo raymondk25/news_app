@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/utils.dart';
 
 class EmptyNewsWidget extends StatelessWidget {
-  const EmptyNewsWidget({Key? key, required this.text, required this.imagePath})
-      : super(key: key);
+  const EmptyNewsWidget({Key? key, required this.text, required this.imagePath}) : super(key: key);
   final String text, imagePath;
   @override
   Widget build(BuildContext context) {
@@ -22,11 +21,12 @@ class EmptyNewsWidget extends StatelessWidget {
               imagePath,
             ),
           ),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: color, fontSize: 30, fontWeight: FontWeight.w700),
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: color, fontSize: 30, fontWeight: FontWeight.w700),
+            ),
           ),
         ],
       ),
