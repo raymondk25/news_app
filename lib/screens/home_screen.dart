@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -13,6 +15,8 @@ import '../widgets/tabs_widget.dart';
 import '../widgets/top_tending.dart';
 import '../widgets/vertical_spacing.dart';
 
+import 'package:http/http.dart' as http;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -24,6 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
   var newsType = NewsType.allNews;
   String sortBy = SortByEnum.publishedAt.name;
   int currentPageIndex = 0;
+
+  Future<void> getNews() async {
+    var url = Uri.parse("https://newsapi.org/v2/everything?q=bitcoin&apiKey=39bcc9134cd84749b9ae30dbb6bdea28");
+    var response = await http.get(url);
+    log("Response body ${response.body}");
+  }
+
+  @override
+  void didChangeDependencies() {
+    getNews();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = Utils(context).getScreenSize;
