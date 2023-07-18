@@ -33,7 +33,8 @@ class NewsModel {
       title: json["title"] ?? "",
       description: json["description"] ?? "",
       url: json["url"] ?? "",
-      urlToImage: json["urlToImage"] ?? "",
+      urlToImage:
+          json["urlToImage"] ?? "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1",
       publishedAt: json["publishedAt"] ?? "",
       content: json["content"] ?? "",
       dateToShow: "dateToShow",

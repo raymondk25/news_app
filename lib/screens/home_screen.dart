@@ -28,11 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
   var newsType = NewsType.allNews;
   String sortBy = SortByEnum.publishedAt.name;
   int currentPageIndex = 0;
+  List<NewsModel> newsList = [];
 
   @override
   void didChangeDependencies() async {
-    await NewsAPIServices.getAllNews();
+    getNewsList();
     super.didChangeDependencies();
+  }
+
+  Future<void> getNewsList() async {
+    newsList = await NewsAPIServices.getAllNews();
+    setState(() {});
   }
 
   @override
@@ -184,12 +190,11 @@ class _HomeScreenState extends State<HomeScreen> {
               if (newsType == NewsType.allNews)
                 Expanded(
                   child: ListView.builder(
-                      // you can add these 2 lines for better performance
-                      // shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemCount: 20,
+                      itemCount: newsList.length,
                       itemBuilder: (ctx, index) {
-                        return const ArticlesWidget();
+                        return ArticlesWidget(
+                          imageUrl: newsList[index].urlToImage,
+                        );
                       }),
                 ),
               if (newsType == NewsType.topTrending)

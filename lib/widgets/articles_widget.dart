@@ -9,7 +9,8 @@ import '../inner_screens/blog_details.dart';
 import '../services/utils.dart';
 
 class ArticlesWidget extends StatelessWidget {
-  const ArticlesWidget({Key? key}) : super(key: key);
+  const ArticlesWidget({Key? key, required this.imageUrl}) : super(key: key);
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class ArticlesWidget extends StatelessWidget {
                           width: size.height * 0.12,
                           boxFit: BoxFit.fill,
                           errorWidget: Image.asset('assets/images/empty_image.png'),
-                          imageUrl: "https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1"),
+                          imageUrl: imageUrl),
                     ),
                     const SizedBox(
                       width: 10,
