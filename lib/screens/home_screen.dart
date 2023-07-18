@@ -201,12 +201,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ListView.builder(
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (ctx, index) {
-                                  return ArticlesWidget(
-                                    imageUrl: snapshot.data![index].urlToImage,
-                                    title: snapshot.data![index].title,
-                                    readingTimeText: snapshot.data![index].readingTimeText,
-                                    dateToShow: snapshot.data![index].dateToShow,
-                                    url: snapshot.data![index].url,
+                                  return ChangeNotifierProvider.value(
+                                    value: snapshot.data![index],
+                                    child: const ArticlesWidget(),
                                   );
                                 }),
                           )
