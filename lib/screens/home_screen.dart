@@ -6,10 +6,12 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/inner_screens/search_screen.dart';
 import 'package:news_app/models/news_model.dart';
+import 'package:news_app/providers/news_provider.dart';
 import 'package:news_app/services/news_api.dart';
 import 'package:news_app/widgets/empty_screen.dart';
 import 'package:news_app/widgets/loading_widget.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/vars.dart';
 import '../services/utils.dart';
@@ -35,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = Utils(context).getScreenSize;
     final Color color = Utils(context).getColor;
+    final newsProvider = Provider.of<NewsProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -178,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               const VerticalSpacing(10),
               FutureBuilder<List<NewsModel>>(
-                  future: NewsAPIServices.getAllNews(),
+                  future: newsProvider.fetchAllNews(),
                   builder: ((context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return newsType == NewsType.allNews
