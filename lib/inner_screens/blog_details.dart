@@ -4,8 +4,10 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/providers/news_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../consts/styles.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 import '../widgets/vertical_spacing.dart';
 
@@ -97,7 +99,13 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          try {
+                            await Share.share(currentNews.url, subject: 'Look what I made!');
+                          } catch (err) {
+                            GlobalMethods.errorDialog(errorMessage: err.toString(), context: context);
+                          }
+                        },
                         child: Card(
                           elevation: 10,
                           shape: const CircleBorder(),
