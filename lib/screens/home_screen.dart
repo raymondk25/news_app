@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               const VerticalSpacing(10),
               FutureBuilder<List<NewsModel>>(
-                  future: newsProvider.fetchAllNews(),
+                  future: newsProvider.fetchAllNews(pageIndex: currentPageIndex + 1),
                   builder: ((context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return newsType == NewsType.allNews

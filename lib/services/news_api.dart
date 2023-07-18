@@ -7,11 +7,12 @@ import 'package:news_app/consts/http_exceptions.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsAPIServices {
-  static Future<List<NewsModel>> getAllNews() async {
+  static Future<List<NewsModel>> getAllNews({required int page}) async {
     try {
       var uri = Uri.https(kBaseUrl, "v2/everything", {
         "q": "bitcoin",
         "pageSize": "5",
+        "page": page.toString(),
         "domains": "bbc.co.uk,techcrunch.com,engadget.com",
       });
       var response = await http.get(uri, headers: {"X-Api-Key": kApiKey});
