@@ -80,7 +80,7 @@ class ArticlesWidget extends StatelessWidget {
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              readingTimeText,
+                              "🕒 $readingTimeText",
                               style: smallTextStyle,
                             ),
                           ),
