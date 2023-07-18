@@ -207,6 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (ctx, index) {
                                   return ArticlesWidget(
                                     imageUrl: snapshot.data![index].urlToImage,
+                                    title: snapshot.data![index].title,
+                                    readingTimeText: snapshot.data![index].readingTimeText,
+                                    dateToShow: snapshot.data![index].dateToShow,
+                                    url: snapshot.data![index].url,
                                   );
                                 }),
                           )
@@ -220,7 +224,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemWidth: size.width * 0.9,
                               layout: SwiperLayout.STACK,
                               itemBuilder: (ctx, index) {
-                                return const TopTrendingWidget();
+                                return TopTrendingWidget(
+                                  url: snapshot.data![index].url,
+                                );
                               },
                             ),
                           );

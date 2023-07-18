@@ -11,14 +11,14 @@ import '../services/utils.dart';
 import '../widgets/vertical_spacing.dart';
 
 class NewsDetailsWebView extends StatefulWidget {
-  const NewsDetailsWebView({Key? key}) : super(key: key);
+  const NewsDetailsWebView({Key? key, required this.url}) : super(key: key);
+  final String url;
 
   @override
   State<NewsDetailsWebView> createState() => _NewsDetailsWebViewState();
 }
 
 class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
-  final url = 'https://techcrunch.com/2022/06/17/marc-lores-food-delivery-startup-wonder-raises-350m-3-5b-valuation/';
   late WebViewController _webViewController;
   double _progress = 0.0;
 
@@ -47,7 +47,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(url));
+      ..loadRequest(Uri.parse(widget.url));
     super.initState();
   }
 
@@ -81,7 +81,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
               },
             ),
             title: Text(
-              "URL",
+              widget.url,
               style: TextStyle(color: color),
             ),
             actions: [
@@ -112,8 +112,8 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
   }
 
   Future<void> _launchUrl() async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw Exception('Could not launch $url');
+    if (!await launchUrl(Uri.parse(widget.url))) {
+      throw Exception('Could not launch $widget.url');
     }
   }
 
@@ -156,7 +156,7 @@ class _NewsDetailsWebViewState extends State<NewsDetailsWebView> {
                   title: const Text('Share'),
                   onTap: () async {
                     try {
-                      await Share.share(url, subject: 'Look what I made!');
+                      await Share.share(widget.url, subject: 'Look what I made!');
                     } catch (err) {
                       GlobalMethods.errorDialog(errorMessage: err.toString(), context: context);
                     }

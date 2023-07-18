@@ -9,8 +9,15 @@ import '../inner_screens/blog_details.dart';
 import '../services/utils.dart';
 
 class ArticlesWidget extends StatelessWidget {
-  const ArticlesWidget({Key? key, required this.imageUrl}) : super(key: key);
-  final String imageUrl;
+  const ArticlesWidget(
+      {Key? key,
+      required this.imageUrl,
+      required this.title,
+      required this.readingTimeText,
+      required this.dateToShow,
+      required this.url})
+      : super(key: key);
+  final String imageUrl, title, readingTimeText, dateToShow, url;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,7 @@ class ArticlesWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'title ' * 100,
+                            title,
                             textAlign: TextAlign.justify,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -73,7 +80,7 @@ class ArticlesWidget extends StatelessWidget {
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              '🕒 Reading time',
+                              readingTimeText,
                               style: smallTextStyle,
                             ),
                           ),
@@ -88,7 +95,7 @@ class ArticlesWidget extends StatelessWidget {
                                         ctx: context,
                                         inheritTheme: true,
                                         type: PageTransitionType.rightToLeft,
-                                        child: const NewsDetailsWebView(),
+                                        child: NewsDetailsWebView(url: url),
                                       ),
                                     );
                                   },
@@ -98,7 +105,7 @@ class ArticlesWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '20-2-2020 ' * 2,
+                                  dateToShow,
                                   maxLines: 1,
                                   style: smallTextStyle,
                                 ),
