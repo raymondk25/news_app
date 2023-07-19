@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "986460779094",
+    "project_id": "news-app-flutter-9d92e",
+    "storage_bucket": "news-app-flutter-9d92e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986460779094:android:ec9aff590aac9aff8701f7",
+        "android_client_info": {
+          "package_name": "com.example.news_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986460779094-r3ppsgeifgc8rpudrcf5atcjsmrt0nb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.news_app",
+            "certificate_hash": "6ed082ef9690e6d5ee7170be568bf568a967abc5"
+          }
+        },
+        {
+          "client_id": "986460779094-pu931q1il5f81oh6g3uvjkc12l49ekeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0wRGSOFiL_dEPS3ScOMrlkeFPnObDE0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986460779094-pu931q1il5f81oh6g3uvjkc12l49ekeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
