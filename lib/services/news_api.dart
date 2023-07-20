@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/consts/api_consts.dart';
-import 'package:news_app/consts/http_exceptions.dart';
-import 'package:news_app/models/news_model.dart';
+
+import '../consts/api_consts.dart';
+import '../consts/http_exceptions.dart';
+import '../models/bookmarks_model.dart';
+import '../models/news_model.dart';
 
 class NewsAPIServices {
   static Future<List<NewsModel>> getAllNews({required int page, required String sortBy}) async {
@@ -69,6 +71,29 @@ class NewsAPIServices {
         newsTempList.add(v);
       }
       return NewsModel.newsFromSnapshot(newsTempList);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  static Future<List<BookmarksModel>?> getBookmarks() async {
+    try {
+      var uri = Uri.https(kBaseUrlFirebase, "bookmarks.json");
+      var response = await http.get(uri);
+
+      // log("Response status: ${response.statusCode}");
+      // log("Response status: ${response.body}");
+
+      Map data = jsonDecode(response.body);
+      List allKeys = [];
+      if (data['code'] != null) {
+        throw HttpException(data['code']);
+      }
+      for (String key in data.keys) {
+        allKeys.add(key);
+      }
+      log(allKeys.toString());
+      return BookmarksModel.bookmarksFromSnapshot(json: data, allKeys: allKeys);
     } catch (e) {
       throw e.toString();
     }

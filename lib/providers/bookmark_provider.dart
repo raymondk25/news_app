@@ -8,11 +8,18 @@ import '../models/bookmarks_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/news_model.dart';
+import '../services/news_api.dart';
 
 class BookmarkProvider extends ChangeNotifier {
   List<BookmarksModel> bookmarkList = [];
 
   List<BookmarksModel> get getbookmarkList {
+    return bookmarkList;
+  }
+
+  Future<List<BookmarksModel>> fetchBookmarks() async {
+    bookmarkList = await NewsAPIServices.getBookmarks() ?? [];
+    // notifyListeners();
     return bookmarkList;
   }
 

@@ -1,5 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/providers/bookmark_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../consts/vars.dart';
@@ -23,6 +25,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
     baseShimmerColor = utils.baseShimmerColor;
     highlightShimmerColor = utils.highlightShimmerColor;
     widgetShimmerColor = utils.widgetShimmerColor;
+    Provider.of<BookmarkProvider>(context, listen: false).fetchBookmarks();
     super.didChangeDependencies();
   }
 

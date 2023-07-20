@@ -61,7 +61,7 @@ class NewsModel with ChangeNotifier {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data["NewsId"] = newsId;
+    data["newsId"] = newsId;
     data["sourceName"] = sourceName;
     data["authorName"] = authorName;
     data["title"] = title;

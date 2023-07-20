@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class BookmarksModel with ChangeNotifier {
-  String newsId,
+  String bookmarkKey,
+      newsId,
       sourceName,
       authorName,
       title,
@@ -14,6 +15,7 @@ class BookmarksModel with ChangeNotifier {
       readingTimeText;
 
   BookmarksModel({
+    required this.bookmarkKey,
     required this.newsId,
     required this.sourceName,
     required this.authorName,
@@ -27,8 +29,9 @@ class BookmarksModel with ChangeNotifier {
     required this.readingTimeText,
   });
 
-  factory BookmarksModel.fromJson(dynamic json) {
+  factory BookmarksModel.fromJson({required dynamic json, required bookmarkKey}) {
     return BookmarksModel(
+      bookmarkKey: bookmarkKey,
       newsId: json['newsId'] ?? "",
       sourceName: json['sourceName'] ?? "",
       authorName: json['authorName'] ?? "",
@@ -43,9 +46,9 @@ class BookmarksModel with ChangeNotifier {
     );
   }
 
-  static List<BookmarksModel> bookmarksFromSnapshot(List newSnapshot) {
-    return newSnapshot.map((data) {
-      return BookmarksModel.fromJson(data);
+  static List<BookmarksModel> bookmarksFromSnapshot({required dynamic json, required List allKeys}) {
+    return allKeys.map((key) {
+      return BookmarksModel.fromJson(json: json[key], bookmarkKey: key);
     }).toList();
   }
 

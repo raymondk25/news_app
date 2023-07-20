@@ -127,11 +127,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          if (!isInBookmark) {
-                            print('1');
+                          if (isInBookmark) {
                             await bookmarkProvider.deleteBookmark();
                           } else {
-                            print('2');
                             await bookmarkProvider.addToBookmark(newsModel: currentNews);
                           }
                         },
