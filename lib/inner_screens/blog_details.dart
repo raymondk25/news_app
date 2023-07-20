@@ -2,11 +2,12 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/providers/news_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../consts/styles.dart';
+import '../providers/bookmark_provider.dart';
+import '../providers/news_provider.dart';
 import '../services/global_methods.dart';
 import '../services/utils.dart';
 import '../widgets/vertical_spacing.dart';
@@ -24,6 +25,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
   Widget build(BuildContext context) {
     final color = Utils(context).getColor;
     final newsProvider = Provider.of<NewsProvider>(context);
+    final bookmarkProvider = Provider.of<BookmarkProvider>(context);
     String publishedAt = ModalRoute.of(context)!.settings.arguments as String;
     final currentNews = newsProvider.findByDate(publishedAt: publishedAt);
 
@@ -123,7 +125,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          await bookmarkProvider.addToBookmark();
+                        },
                         child: Card(
                           elevation: 10,
                           shape: const CircleBorder(),

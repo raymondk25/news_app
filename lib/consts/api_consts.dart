@@ -1,2 +1,4 @@
-String kBaseUrl = "newsapi.org";
-String kApiKey = "";
+const String kBaseUrl = "newsapi.org";
+const String kApiKey = "";
+
+const String kBaseUrlFirebase = "";
