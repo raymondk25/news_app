@@ -7,6 +7,8 @@ import 'package:news_app/consts/api_consts.dart';
 import '../models/bookmarks_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/news_model.dart';
+
 class BookmarkProvider extends ChangeNotifier {
   List<BookmarksModel> bookmarkList = [];
 
@@ -14,10 +16,15 @@ class BookmarkProvider extends ChangeNotifier {
     return bookmarkList;
   }
 
-  Future<void> addToBookmark() async {
+  Future<void> addToBookmark({required NewsModel newsModel}) async {
     try {
       var uri = Uri.https(kBaseUrlFirebase, "bookmarks.json");
-      var response = await http.post(uri, body: json.encode({"test": "Test"}));
+      var response = await http.post(
+        uri,
+        body: json.encode(
+          newsModel.toJson(),
+        ),
+      );
 
       log("Response status: ${response.statusCode}");
       log("Response status: ${response.body}");
