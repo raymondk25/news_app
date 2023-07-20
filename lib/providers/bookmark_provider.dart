@@ -28,15 +28,18 @@ class BookmarkProvider extends ChangeNotifier {
 
       log("Response status: ${response.statusCode}");
       log("Response status: ${response.body}");
-      // Map data = jsonDecode(response.body);
-      // List newsTempList = [];
-      // if (data['code'] != null) {
-      //   throw HttpException(data['code']);
-      // }
-      // for (var v in data["articles"]) {
-      //   newsTempList.add(v);
-      // }
-      // return NewsModel.newsFromSnapshot(newsTempList);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> deleteBookmark() async {
+    try {
+      var uri = Uri.https(kBaseUrlFirebase, "bookmarks/-N_mmadada26bPsXpMEy4A.json");
+      var response = await http.delete(uri);
+
+      log("Response status: ${response.statusCode}");
+      log("Response status: ${response.body}");
     } catch (e) {
       throw e.toString();
     }
