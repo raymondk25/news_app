@@ -147,7 +147,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                       GestureDetector(
                         onTap: () async {
                           if (isInBookmark) {
-                            await bookmarkProvider.deleteBookmark();
+                            await bookmarkProvider.deleteBookmark(bookmarkKey: currBookmark[0].bookmarkKey);
                           } else {
                             await bookmarkProvider.addToBookmark(newsModel: currentNews);
                           }

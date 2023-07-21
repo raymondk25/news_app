@@ -40,9 +40,9 @@ class BookmarkProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteBookmark() async {
+  Future<void> deleteBookmark({required String bookmarkKey}) async {
     try {
-      var uri = Uri.https(kBaseUrlFirebase, "bookmarks/-N_mmadada26bPsXpMEy4A.json");
+      var uri = Uri.https(kBaseUrlFirebase, "bookmarks/$bookmarkKey.json");
       var response = await http.delete(uri);
       notifyListeners();
       log("Response status: ${response.statusCode}");
