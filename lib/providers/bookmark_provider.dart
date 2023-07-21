@@ -19,7 +19,7 @@ class BookmarkProvider extends ChangeNotifier {
 
   Future<List<BookmarksModel>> fetchBookmarks() async {
     bookmarkList = await NewsAPIServices.getBookmarks() ?? [];
-    // notifyListeners();
+    notifyListeners();
     return bookmarkList;
   }
 
@@ -32,7 +32,7 @@ class BookmarkProvider extends ChangeNotifier {
           newsModel.toJson(),
         ),
       );
-
+      notifyListeners();
       log("Response status: ${response.statusCode}");
       log("Response status: ${response.body}");
     } catch (e) {
@@ -44,7 +44,7 @@ class BookmarkProvider extends ChangeNotifier {
     try {
       var uri = Uri.https(kBaseUrlFirebase, "bookmarks/-N_mmadada26bPsXpMEy4A.json");
       var response = await http.delete(uri);
-
+      notifyListeners();
       log("Response status: ${response.statusCode}");
       log("Response status: ${response.body}");
     } catch (e) {

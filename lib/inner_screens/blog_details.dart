@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../consts/styles.dart';
+import '../models/bookmarks_model.dart';
 import '../providers/bookmark_provider.dart';
 import '../providers/news_provider.dart';
 import '../services/global_methods.dart';
@@ -21,7 +22,25 @@ class NewsDetailsScreen extends StatefulWidget {
 }
 
 class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
-  final bool isInBookmark = false;
+  bool isInBookmark = false;
+  String? publishedAt;
+  dynamic currBookmark;
+
+  @override
+  void didChangeDependencies() {
+    publishedAt = ModalRoute.of(context)!.settings.arguments as String;
+    final List<BookmarksModel> bookmarkList = Provider.of<BookmarkProvider>(context).getbookmarkList;
+    if (bookmarkList.isEmpty) return;
+    currBookmark = bookmarkList.where((element) => element.publishedAt == publishedAt).toList();
+    if (currBookmark.isEmpty) {
+      isInBookmark = false;
+    } else {
+      isInBookmark = true;
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).getColor;
@@ -132,6 +151,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                           } else {
                             await bookmarkProvider.addToBookmark(newsModel: currentNews);
                           }
+                          bookmarkProvider.fetchBookmarks();
                         },
                         child: Card(
                           elevation: 10,
@@ -139,9 +159,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
-                              IconlyLight.bookmark,
+                              isInBookmark ? IconlyBold.bookmark : IconlyLight.bookmark,
                               size: 28,
-                              color: color,
+                              color: isInBookmark ? Colors.green : color,
                             ),
                           ),
                         ),
