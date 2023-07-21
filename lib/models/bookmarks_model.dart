@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../services/global_methods.dart';
+
 class BookmarksModel with ChangeNotifier {
   String bookmarkKey,
       newsId,
@@ -39,7 +41,7 @@ class BookmarksModel with ChangeNotifier {
       description: json['description'] ?? "",
       url: json['url'] ?? '',
       urlToImage: json['urlToImage'] ?? 'https://cdn-icons-png.flaticon.com/512/833/833268.png',
-      publishedAt: json['publishedAt'] ?? '',
+      publishedAt: json['publishedAt'] ?? "",
       dateToShow: json['dateToShow'] ?? "",
       content: json['content'] ?? "",
       readingTimeText: json['readingTimeText'] ?? "",

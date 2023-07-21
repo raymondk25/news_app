@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/inner_screens/search_screen.dart';
 import 'package:news_app/models/news_model.dart';
 import 'package:news_app/providers/news_provider.dart';
-import 'package:news_app/services/news_api.dart';
 import 'package:news_app/widgets/empty_screen.dart';
 import 'package:news_app/widgets/loading_widget.dart';
 import 'package:page_transition/page_transition.dart';

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/inner_screens/bookmarks_screen.dart';
-import 'package:news_app/widgets/vertical_spacing.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+import '../inner_screens/bookmarks_screen.dart';
 import '../providers/theme_provider.dart';
+import '../screens/home_screen.dart';
+import 'vertical_spacing.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
@@ -53,13 +54,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ListTilesWidget(
               label: "Home",
               icon: themeProvider.getDarkTheme ? IconlyBold.home : IconlyLight.home,
-              function: () {},
+              function: () {
+                Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                    ctx: context,
+                    inheritTheme: true,
+                    type: PageTransitionType.rightToLeft,
+                    child: const HomeScreen(),
+                  ),
+                );
+              },
             ),
             ListTilesWidget(
               label: "Bookmark",
               icon: themeProvider.getDarkTheme ? IconlyBold.bookmark : IconlyLight.bookmark,
               function: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   PageTransition(
                     ctx: context,
